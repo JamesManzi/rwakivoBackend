@@ -5,7 +5,7 @@ const allowed_origins=process.env.ALLOWED_ORIGINS
 :["http://localhost:5173"];
 
 const corsOption={
-    origin:function(req,callback){
+    origin:function(origin,callback){
         if(!origin){
             return callback(null,true);
         };
@@ -18,7 +18,7 @@ const corsOption={
     },
     methods:['PUT','POST','GET','DELETE','OPTIONS'],
     allowedHeaders:['Content-Type,Authorization'],
-    Credential:true
+    credentials:true
 }
 
 module.exports=cors(corsOption);
