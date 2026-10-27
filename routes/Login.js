@@ -9,7 +9,7 @@ router.post("/login",async(req,res)=>{
         const {email,password}=req.body;
         const user=await User.findOne({email});
         if(!user){
-            return res.status(404).json({
+            return res.status(401).json({
                 success:false,
                 message:"Invalid Credentials"
             })
@@ -17,7 +17,7 @@ router.post("/login",async(req,res)=>{
 
         const isMatch=await bcrypt.compare(password,user.password);
         if(!isMatch){
-            return res.status(404).json({
+            return res.status(401).json({
                 success:false,
                 message:"Invalid Credentials"
             })
@@ -36,6 +36,7 @@ router.post("/login",async(req,res)=>{
         )
 
         res.status(200).json({
+            success:true,
             user:{
                 username:user.username,
                 email:user.email,
